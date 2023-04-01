@@ -2,17 +2,32 @@
 
 namespace App\Controller;
 
+use App\Entity\Brand;
+use App\Repository\BrandRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    #[Route('/clothes/{brand}', name: 'home', defaults: ['brand' => null], methods:['GET', 'HEAD'])]    
+    private $em;
+    public function __construct(EntityManagerInterface $em){
+        $this->em = $em;
+    }
 
-    public function index($brand): Response
+    #[Route('/clothes/{brand}', name: 'home')]    
+
+    public function index(): Response
     {
-        return $this->render('index.html.twig', ['title' => $brand]);
+        $repository = $this->em->getRepository(Brand::class);
+        $brands = $repository->findBy([], ['id' => 'DESC']);
+
+        dump($brands);
+        dump($repository->count([]));
+        dump($repository->getClassName());
+
+        return $this->render('index.html.twig', ['brands' => $brands]);
 
         /*
         JSON

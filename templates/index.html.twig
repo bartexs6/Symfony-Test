@@ -1,10 +1,18 @@
-<h1>
-    <!-- $brand -->
-    {{ dump(title) }}
+{% extends 'base.html.twig' %}
 
-    {% if title %}
-        <p>{{title}} - test</p>
-    {% else %}
-        <p>Brak</p>
-    {% endif %}
-</h1>
+{% block title %}
+        Test
+{% endblock %}
+
+{% block body %}
+
+    Size: ({{ brands|length }})
+    {% for brand in brands %}
+        {{brand.name}}    
+    {% endfor %}
+
+    <p>{{ _self }}</p>
+    <p>{{ _charset }}</p>
+    <p>{{ author }}</p>
+
+{% endblock %}
