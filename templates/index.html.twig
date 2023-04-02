@@ -6,9 +6,9 @@
 
 {% block body %}
 
-    Size: ({{ brands|length }})
-    {% for brand in brands %}
-        {{brand.name}}    
+    Size: ({{ brandSizes|length }})
+    {% for brand in brandSizes %}
+        {{brand}}    
     {% endfor %}
 
     <p>{{ _self }}</p>
